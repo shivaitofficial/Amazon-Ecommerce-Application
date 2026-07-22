@@ -17,10 +17,10 @@ public class CustomerService {
 	private CustomerRepository cusRepo;
 	
 	// First Service
-	public Customer createCustomer(Customer cus) // User-defined Method
-	{
-		return cusRepo.save(cus);
-	}
+    public void createCustomer(Customer cus) 
+    {
+        cusRepo.save(cus);
+    }
 	
 	// Second Service
 	public List<Customer>  getAllCustomer()
