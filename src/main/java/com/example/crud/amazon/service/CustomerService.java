@@ -25,7 +25,12 @@ public class CustomerService {
 	// Second Service
 	public List<Customer>  getAllCustomer()
 	{
-		return cusRepo.findAll();
+		List<Customer> list = cusRepo.findAll();
+		
+		if(list.isEmpty()) {
+			throw new RuntimeException("No Customer records found");
+		}
+		return list;
 	}
 	
 	// Third Service

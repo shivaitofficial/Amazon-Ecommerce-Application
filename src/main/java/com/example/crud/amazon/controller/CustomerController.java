@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.crud.amazon.entity.Customer;
 import com.example.crud.amazon.exception.CustomerNotFoundException;
+import com.example.crud.amazon.response.ApiResponse;
 import com.example.crud.amazon.service.CustomerService;
 
 @RestController
@@ -33,9 +35,15 @@ public class CustomerController {
 	
 	// GetMapping for read all customer
 	@GetMapping("/getAll")
-	List<Customer> readAllCustomer()
-	{
-		return cusService.getAllCustomer();
+	public ResponseEntity<ApiResponse<List<Customer>>> getAllCustomer() {
+		
+		List<Customer> customers = cusService.getAllCustomer();
+		
+		ApiResponse<List<Customer>> response = new ApiResponse<>(
+				200, "All Customer Details Showed Successfully", 
+				customers
+				);
+		return ResponseEntity.ok(response);
 	}
 	
 	// GetMapping for read customer by using ID 
