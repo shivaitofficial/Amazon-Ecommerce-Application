@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.crud.amazon.entity.Customer;
@@ -31,9 +32,14 @@ public class CustomerService {
 	}
 	
 	// Second Service
-	public List<Customer>  getAllCustomer()
+	public ResponseEntity<?>  getAllCustomer()
 	{
-		return cusRepo.findAll();
+		List<Customer> cus = cusRepo.findAll();
+		if(cus.isEmpty()) // true
+		{
+			return ResponseEntity.ok("No Customer details Found");
+		}
+		return ResponseEntity.ok("Customer details displayed");	
 	}
 	
 	// Third Service
@@ -58,5 +64,7 @@ public class CustomerService {
 	{
 		 	cusRepo.deleteById(id);
 	}
+	
+	
 
 }
