@@ -28,18 +28,25 @@ public class CustomerController {
 	
 	// PostMapping for create Customer
 	@PostMapping
-	public ResponseEntity<String>addCustomer(@RequestBody Customer cus) 
+	public String addCustomer(@RequestBody Customer cus) 
 	{
-        try 
-        {
-            cusService.createCustomer(cus);
-            return ResponseEntity.ok("Customer records saved successfully!");
-        } 
-        catch (Exception e) 
-        {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                                 .body("Customer records not saved. Error: " + e.getMessage());
-        }
+	    try 
+	    {
+	        boolean result = cusService.createCustomer(cus);
+
+	        if (result) 
+	        {
+	            return "Customer record saved successfully..!";
+	        } 
+	        else 
+	        {
+	            return "Customer record not saved..!";
+	        }
+	    } 
+	    catch (Exception e) 
+	    {
+	        return "Customer record not saved..!\n" + e.getMessage();
+	    }
 	}
 	
 	// GetMapping for read all customer

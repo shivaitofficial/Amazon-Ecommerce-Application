@@ -17,10 +17,18 @@ public class CustomerService {
 	private CustomerRepository cusRepo;
 	
 	// First Service
-    public void createCustomer(Customer cus) 
-    {
-        cusRepo.save(cus);
-    }
+	public boolean createCustomer(Customer cus) 
+	{
+	    try 
+	    {
+	    	cusRepo.save(cus);
+	        return true;
+	    } 
+	    catch (Exception e) 
+	    {
+	        throw new RuntimeException("Error: " + e.getMessage());
+	    }
+	}
 	
 	// Second Service
 	public List<Customer>  getAllCustomer()
