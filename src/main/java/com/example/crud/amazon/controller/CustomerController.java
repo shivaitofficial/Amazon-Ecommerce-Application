@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,9 +35,16 @@ public class CustomerController {
 	
 	// GetMapping for read all customer
 	@GetMapping("/getAll")
-	List<Customer> readAllCustomer()
+	public ResponseEntity<?> getAllCustomer() 
 	{
-		return cusService.getAllCustomer();
+		try {
+			List<Customer> customers = cusService.getAllCustomer();
+			return ResponseEntity.ok("All Customer details showed Successfully\n" + customers);
+		}
+		catch(Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Unable to give the details of Customers.\nReason : "+ e.getMessage());
+		}
+		
 	}
 	
 	// GetMapping for read customer by using ID 
